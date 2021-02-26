@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/recipes")
 @AllArgsConstructor
 public class RecipeController {
-    private RecipeService recipeService;
-    private RecipeDtoMapper recipeDtoMapper;
+    private final RecipeService recipeService;
+    private final RecipeDtoMapper recipeDtoMapper;
 
     @GetMapping
     private Page<RecipeDto> getAll(@PageableDefault(sort = "name") Pageable pageable) {
