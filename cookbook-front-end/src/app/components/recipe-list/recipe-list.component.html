@@ -1,9 +1,11 @@
-<div *ngFor="let recipe of recipes | paginate: {
-      itemsPerPage: pageSize,
-      currentPage: page,
-      totalItems: count }">
+<div *ngFor="let recipe of page.content | paginate: {
+      itemsPerPage: page.size,
+      currentPage: page.number + 1,
+      totalItems: page.totalElements
+      }">
   <app-recipe [recipe]="recipe"></app-recipe>
 </div>
 <pagination-controls
+  autoHide = true,
   (pageChange)="handlePageChange($event)"
 ></pagination-controls>

@@ -1,7 +1,12 @@
 <div class="parentRecipe">
-<!--  <p>id : {{recipe.id}}</p>-->
-  <p>name: {{recipe.name}}</p>
-  <p>description: {{recipe.description}}</p>
-<!--  <app-recipe *ngIf = "recipe.parentRecipe != null" [recipe] = "recipe.parentRecipe"></app-recipe>-->
-<!--  <app-recipe-list *ngIf = "recipe.childrenRecipe != null" [recipes] = "recipe.childrenRecipe"></app-recipe-list>-->
+  <p class="id">id : {{recipe.id}}</p>
+  <h3 class="recipe_name">name: {{recipe.name}}</h3>
+  <p class="data_created">date: {{recipe.date_created  | date: 'dd-MM-yyyy HH:mm'}}
+  <p class="recipe_description">description: {{recipe.description}}</p>
+  <button  *ngIf = "recipe.parent_id != null" (click)="toggleParentVisibility()">Get parent recipe</button>
+  <app-recipe *ngIf = "parentRecipeVisibility && recipe.parent_id != null" [recipe]="recipe.parentRecipe"></app-recipe>
+  <button (click)="toggleChildrenVisibility()">Get children recipes</button>
+  <app-recipe-list *ngIf="childrenRecipesVisibility" [isChildrenList]="true" [parentId]="recipe.id"></app-recipe-list>
+  <button>Create new</button>
+  <button> Update </button>
 </div>

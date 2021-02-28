@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IRecipe} from '../../interfaces/IRecipe';
 import {RecipeService} from '../../services/recipe.service';
+import {Page} from '../../interfaces/Page';
 
 @Component({
   selector: 'app-recipe-list',
@@ -8,22 +9,21 @@ import {RecipeService} from '../../services/recipe.service';
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
-  recipes: IRecipe[];
-  count: number;
-  page = 0;
-  pageSize = 2;
+  page: Page<IRecipe> = {content: null, totalPages: null, totalElements: null, number: 0, size: 2};
+  @Input() isChildrenList = false;
+  @Input() parentId: number;
 
   constructor(private recipeService: RecipeService) {
   }
 
   ngOnInit(): void {
-    this.retrieveRecipe();
+      this.retrieveRecipe();
   }
 
-  getRequestParams(page, pageSize): any {
+  getRequestParams(pageNumber, pageSize): any {
     const params = {};
-    if (page) {
-      params[`page`] = page - 1;
+    if (pageNumber) {
+      params[`page`] = pageNumber - 1;
     }
     if (pageSize) {
       params[`size`] = pageSize;
@@ -32,18 +32,27 @@ export class RecipeListComponent implements OnInit {
   }
 
   retrieveRecipe(): void {
-    const requestParams = this.getRequestParams(this.page, this.pageSize);
-    this.recipeService.getRecipeList(requestParams)
-      //.subscribe(data => this.recipes = data['content']);
-      .subscribe(data => {
-        const {content, totalElements} = data;
-        this.recipes = content;
-        this.count = totalElements;
-      });
+    const requestParams = this.getRequestParams(this.page.number, this.page.size);
+    console.log('yyyyyyyyyyyyy');
+    if (!this.isChildrenList) {
+      console.log(this.isChildrenList);
+      this.recipeService.getRecipeList(requestParams)
+        .subscribe(data => {
+          this.page = data;
+        });
+      // console.log(this.page);
+    } else {
+      console.log(this.isChildrenList);
+      this.recipeService.getChildrenRecipe(requestParams, this.parentId)
+        .subscribe(data => {
+          this.page = data;
+        });
+      console.log(this.page);
+    }
   }
 
   handlePageChange($event): void {
-    this.page = $event;
+    this.page.number = $event;
     this.retrieveRecipe();
   }
 }

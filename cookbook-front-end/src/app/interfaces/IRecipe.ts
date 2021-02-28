@@ -1,8 +1,11 @@
+import {Page} from './Page';
+
 export interface IRecipe {
     id: number;
     name: string;
+    date_created: Date;
     description: string;
-    parentId: number;
-    // parentRecipe: IRecipe;
-    // childrenRecipe: IRecipe[];
+    parent_id: number;
+    parentRecipe: IRecipe;
+    childrenRecipe: Page<IRecipe>;
 }
