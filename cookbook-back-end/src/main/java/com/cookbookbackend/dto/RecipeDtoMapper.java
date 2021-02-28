@@ -17,4 +17,16 @@ public class RecipeDtoMapper {
         return recipeDto;
     }
 
+    public SimpleRecipeDto convertToSimpleRecipeDto(Recipe recipe) {
+        SimpleRecipeDto simpleRecipeDto = SimpleRecipeDto.builder()
+                .id(recipe.getId())
+                .dateCreated(recipe.getDateCreated())
+                .name(recipe.getName())
+                .description(recipe.getDescription())
+                .parentId(recipe.getParentRecipe() != null ?
+                        recipe.getParentRecipe().getId() : null)
+                .build();
+        return simpleRecipeDto;
+    }
+
 }

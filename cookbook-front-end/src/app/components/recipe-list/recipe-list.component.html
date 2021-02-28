@@ -1,0 +1,9 @@
+<div *ngFor="let recipe of recipes | paginate: {
+      itemsPerPage: pageSize,
+      currentPage: page,
+      totalItems: count }">
+  <app-recipe [recipe]="recipe"></app-recipe>
+</div>
+<pagination-controls
+  (pageChange)="handlePageChange($event)"
+></pagination-controls>
