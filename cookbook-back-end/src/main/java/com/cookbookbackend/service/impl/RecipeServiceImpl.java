@@ -14,6 +14,11 @@ public class RecipeServiceImpl implements RecipeService {
     private RecipeRepository repository;
 
     @Override
+    public Page<Recipe> findAllByParentId(Pageable pageable, Integer id) {
+        return repository.findRecipesByParentRecipe_Id(pageable, id);
+    }
+
+    @Override
     public Page<Recipe> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }

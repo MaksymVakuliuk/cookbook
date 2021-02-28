@@ -12,21 +12,10 @@ public class RecipeDtoMapper {
                 .dateCreated(recipe.getDateCreated())
                 .name(recipe.getName())
                 .description(recipe.getDescription())
-                .parentRecipe(recipe.getParentRecipe())
-                .childrenRecipes(recipe.getChildren()).build();
-        return recipeDto;
-    }
-
-    public SimpleRecipeDto convertToSimpleRecipeDto(Recipe recipe) {
-        SimpleRecipeDto simpleRecipeDto = SimpleRecipeDto.builder()
-                .id(recipe.getId())
-                .dateCreated(recipe.getDateCreated())
-                .name(recipe.getName())
-                .description(recipe.getDescription())
-                .parentId(recipe.getParentRecipe() != null ?
-                        recipe.getParentRecipe().getId() : null)
+                .parentId(recipe.getParentRecipe() != null
+                        ? recipe.getParentRecipe().getId() : null)
                 .build();
-        return simpleRecipeDto;
+        return recipeDto;
     }
 
 }
