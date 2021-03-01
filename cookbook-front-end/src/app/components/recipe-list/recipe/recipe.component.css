@@ -1,0 +1,28 @@
+div {
+  margin-top: 20px;
+  margin: 10px;
+  border-style: solid;
+  border-color: red;
+  border-width: 2px;
+}
+
+.parentRecipe {
+  padding-left: 30px;
+}
+
+.recipe_name {
+  margin-bottom: 0px;
+}
+
+.data_created {
+  margin-top: 5px;
+  font-size: 10px;
+}
+
+.recipe_description {
+  margin: 10px;
+}
+
+button {
+  margin: 5px;
+}
